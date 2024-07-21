@@ -13,17 +13,44 @@ import {
   mostrarUsuario,
   recuperarUsuarios,
   actualizarUsuario,
+  eliminarUsuario,
 } from "@/firebase/Promesas";
+
+import MenuPrincipal from "./MenuPrincipal";
 
 const MostrarUsuarios = () => {
   const [usuario, setUsuario] = useState<Usuario[]>([]);
   const [usuarioSeleccionado, setUsuarioSeleccionado] =
     useState<Usuario>(initialStateUsuario);
 
+  // modal de actualizacion
   const [mostrar, setMostrar] = useState(false);
 
   const cerrarModal = () => setMostrar(false);
   const mostrarModal = () => setMostrar(true);
+
+  // modal de eliminacion
+  const [modalEliminacion, setModalEliminacion] = useState(false);
+
+  const cerrarModalEliminacion = () => setModalEliminacion(false);
+
+  const mostrarModalConfirmacion = (usuario: Usuario) => {
+    setUsuarioSeleccionado(usuario);
+    setModalEliminacion(true);
+  };
+
+  // eliminacion de usuarios con modal
+  const eliminar = () => {
+    if (usuarioSeleccionado.key) {
+      eliminarUsuario(usuarioSeleccionado).then(() => {
+        console.log("usuario eliminado correctamente");
+        cerrarModalEliminacion();
+        recuperarUsuarios().then((usuarios) => {
+          setUsuario(usuarios);
+        });
+      });
+    }
+  };
 
   const params = useRouter();
   useEffect(() => {
@@ -66,6 +93,7 @@ const MostrarUsuarios = () => {
 
   return (
     <>
+      <MenuPrincipal></MenuPrincipal>
       <Table>
         <thead>
           <tr>
@@ -92,7 +120,12 @@ const MostrarUsuarios = () => {
                     <RiEditFill />
                   </Button>
 
-                  <Button variant="danger">
+                  <Button
+                    variant="danger"
+                    onClick={() => {
+                      mostrarModalConfirmacion(u);
+                    }}
+                  >
                     <MdDeleteForever />
                   </Button>
                 </td>
@@ -217,6 +250,23 @@ const MostrarUsuarios = () => {
           </Button>
           <Button variant="primary" onClick={modificarUsuario}>
             guardar cambios
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={modalEliminacion} onHide={cerrarModalEliminacion}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmar Eliminación</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          ¿Estás seguro de que deseas eliminar a {usuarioSeleccionado.nombre}?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={cerrarModalEliminacion}>
+            Cancelar
+          </Button>
+          <Button variant="danger" onClick={eliminar}>
+            Eliminar
           </Button>
         </Modal.Footer>
       </Modal>

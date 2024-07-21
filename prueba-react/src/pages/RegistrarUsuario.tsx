@@ -5,6 +5,8 @@ import { registrarUsuario } from "@/firebase/Promesas";
 
 import { Button, Form, FloatingLabel } from "react-bootstrap";
 
+import MenuPrincipal from "./MenuPrincipal";
+
 const initialStateUsuario: Usuario = {
   nombre: "",
   apellido: "",
@@ -34,6 +36,7 @@ const RegistrarUsuario = () => {
 
   return (
     <>
+      <MenuPrincipal></MenuPrincipal>
       <Form>
         <Form.Label>Nombre</Form.Label>
         <FloatingLabel label="Nombre">

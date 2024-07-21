@@ -6,10 +6,10 @@ import {
   addDoc,
   collection,
   doc,
-  DocumentSnapshot,
   getDoc,
   getDocs,
   updateDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import { db } from "./Firebase";
 
@@ -66,6 +66,11 @@ export const actualizarUsuario = async (u: Usuario) => {
   await updateDoc(ref, { ...u });
 };
 
+export const eliminarUsuario = async (u: Usuario) => {
+  const ref = doc(db, "usuarios", u.key!);
+  await deleteDoc(ref);
+};
+
 // guitarras
 export const registrarGuitarra = async (guitarra: Guitarra) => {
   const docRef = await addDoc(collection(db, "guitarras"), guitarra);
@@ -117,4 +122,11 @@ export const mostrarGuitarra = async (key: string) => {
 export const actualizarGuitarra = async (g: Guitarra) => {
   const ref = doc(db, "guitarras", g.key!);
   await updateDoc(ref, { ...g });
+};
+
+// eliminar guitarra
+
+export const eliminarGuitarra = async (g: Guitarra) => {
+  const ref = doc(db, "guitarras", g.key!);
+  await deleteDoc(ref);
 };

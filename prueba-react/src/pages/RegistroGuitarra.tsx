@@ -5,6 +5,8 @@ import { initialStateGuitarra } from "@/initialStates/InitialStateGuitarras";
 import React, { useState } from "react";
 import { Button, Form, FloatingLabel } from "react-bootstrap";
 
+import MenuPrincipal from "./MenuPrincipal";
+
 const RegistroGuitarra = () => {
   const [Guitarra, setGuitarra] = useState<Guitarra>(initialStateGuitarra);
 
@@ -25,6 +27,7 @@ const RegistroGuitarra = () => {
 
   return (
     <>
+      <MenuPrincipal></MenuPrincipal>
       <Form>
         <Form.Label>Modelo</Form.Label>
         <FloatingLabel label="Modelo">

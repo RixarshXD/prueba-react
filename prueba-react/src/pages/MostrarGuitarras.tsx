@@ -3,6 +3,7 @@ import {
   recuperarGuitarras,
   mostrarGuitarra,
   actualizarGuitarra,
+  eliminarGuitarra,
 } from "@/firebase/Promesas";
 import { Guitarra } from "@/interface/InterfaceGuitarra";
 import { RiEditFill } from "react-icons/ri";
@@ -11,6 +12,8 @@ import { initialStateGuitarra } from "@/initialStates/InitialStateGuitarras";
 
 import { Button, Table, Modal, Form } from "react-bootstrap";
 import { useRouter } from "next/router";
+
+import MenuPrincipal from "./MenuPrincipal";
 
 const MostrarGuitarras = () => {
   const [guitarra, setGuitarra] = useState<Guitarra[]>([]);
@@ -62,8 +65,20 @@ const MostrarGuitarras = () => {
     });
   };
 
+  // const eliminar = (g: Guitarra) => {
+  //   eliminarGuitarra(g)
+  //     .then(() => {
+  //       alert("Se eliminó la guitarra correctamente");
+  //       recuperarGuitarras(); // Actualizar la tabla después de eliminar
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
+
   return (
     <>
+      <MenuPrincipal></MenuPrincipal>
       <Table>
         <thead>
           <tr>
