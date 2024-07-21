@@ -1,16 +1,9 @@
 import { Guitarra } from "@/interface/InterfaceGuitarra";
 import { registrarGuitarra } from "@/firebase/Promesas";
+import { initialStateGuitarra } from "@/initialStates/InitialStateGuitarras";
 
 import React, { useState } from "react";
-import { Button, Form } from "react-bootstrap";
-
-const initialStateGuitarra: Guitarra = {
-  modelo: "",
-  cuerdas: 0,
-  trastes: 0,
-  puente: 0,
-  color: "",
-};
+import { Button, Form, FloatingLabel } from "react-bootstrap";
 
 const RegistroGuitarra = () => {
   const [Guitarra, setGuitarra] = useState<Guitarra>(initialStateGuitarra);
@@ -33,70 +26,70 @@ const RegistroGuitarra = () => {
   return (
     <>
       <Form>
-        <Form.Group>
-          <Form.Label>modelo</Form.Label>
+        <Form.Label>Modelo</Form.Label>
+        <FloatingLabel label="Modelo">
           <Form.Control
             type="text"
-            placeholder="Ingrese modelo"
+            placeholder=""
             name="modelo"
-            onChange={(e) => {
-              validarLargoMinimo(e.currentTarget.name, e.currentTarget.value);
-            }}
+            onChange={(e) =>
+              validarLargoMinimo(e.currentTarget.name, e.currentTarget.value)
+            }
           />
           <Form.Text></Form.Text>
-        </Form.Group>
+        </FloatingLabel>
 
-        <Form.Group>
-          <Form.Label>cuerdas</Form.Label>
+        <Form.Label>Cuerdas</Form.Label>
+        <FloatingLabel label="Cuerdas">
           <Form.Control
             type="number"
-            placeholder="Ingrese cuerdas"
+            placeholder=""
             name="cuerdas"
-            onChange={(e) => {
-              validarLargoMinimo(e.currentTarget.name, e.currentTarget.value);
-            }}
+            onChange={(e) =>
+              validarLargoMinimo(e.currentTarget.name, e.currentTarget.value)
+            }
           />
           <Form.Text></Form.Text>
-        </Form.Group>
+        </FloatingLabel>
 
-        <Form.Group>
-          <Form.Label>trastes</Form.Label>
+        <Form.Label>Trastes</Form.Label>
+        <FloatingLabel label="Trastes">
           <Form.Control
             type="number"
-            placeholder="Ingrese trastes"
+            placeholder=""
             name="trastes"
-            onChange={(e) => {
-              validarLargoMinimo(e.currentTarget.name, e.currentTarget.value);
-            }}
+            onChange={(e) =>
+              validarLargoMinimo(e.currentTarget.name, e.currentTarget.value)
+            }
           />
           <Form.Text></Form.Text>
-        </Form.Group>
+        </FloatingLabel>
 
-        <Form.Group>
-          <Form.Label>puente</Form.Label>
-          <Form.Control
-            type="string"
-            placeholder="Ingrese puente"
-            name="puente"
-            onChange={(e) => {
-              validarLargoMinimo(e.currentTarget.name, e.currentTarget.value);
-            }}
-          />
-          <Form.Text></Form.Text>
-        </Form.Group>
-
-        <Form.Group>
-          <Form.Label>color</Form.Label>
+        <Form.Label>Puente</Form.Label>
+        <FloatingLabel label="Puente">
           <Form.Control
             type="text"
-            placeholder="Ingrese color"
-            name="color"
-            onChange={(e) => {
-              validarLargoMinimo(e.currentTarget.name, e.currentTarget.value);
-            }}
+            placeholder=""
+            name="puente"
+            onChange={(e) =>
+              validarLargoMinimo(e.currentTarget.name, e.currentTarget.value)
+            }
           />
           <Form.Text></Form.Text>
-        </Form.Group>
+        </FloatingLabel>
+
+        <Form.Label>Color</Form.Label>
+        <FloatingLabel label="Color">
+          <Form.Control
+            type="text"
+            placeholder=""
+            name="color"
+            onChange={(e) =>
+              validarLargoMinimo(e.currentTarget.name, e.currentTarget.value)
+            }
+          />
+          <Form.Text></Form.Text>
+        </FloatingLabel>
 
         <Button variant="success" onClick={registrar}>
           Registrar

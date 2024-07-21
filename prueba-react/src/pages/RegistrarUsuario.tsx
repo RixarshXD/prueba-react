@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Usuario } from "@/interface/interfaceUsuario";
+import { Usuario } from "@/interface/InterfaceUsuario";
 
 import { registrarUsuario } from "@/firebase/Promesas";
 
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, FloatingLabel } from "react-bootstrap";
 
 const initialStateUsuario: Usuario = {
   nombre: "",
@@ -27,7 +27,7 @@ const RegistrarUsuario = () => {
         alert("se ha registrado con exito");
       })
       .catch((error) => {
-        alert("no se ha podido registrar");
+        alert("no se ha podido registrar el usuario");
         console.log(error);
       });
   };
@@ -35,83 +35,83 @@ const RegistrarUsuario = () => {
   return (
     <>
       <Form>
-        <Form.Group>
-          <Form.Label>Nombre</Form.Label>
+        <Form.Label>Nombre</Form.Label>
+        <FloatingLabel label="Nombre">
           <Form.Control
             type="text"
             placeholder="Ingrese Nombre"
             name="nombre"
-            onChange={(e) => {
-              validarLargoMinimo(e.currentTarget.name, e.currentTarget.value);
-            }}
+            onChange={(e) =>
+              validarLargoMinimo(e.currentTarget.name, e.currentTarget.value)
+            }
           />
           <Form.Text></Form.Text>
-        </Form.Group>
+        </FloatingLabel>
 
-        <Form.Group>
-          <Form.Label>Apellido</Form.Label>
+        <Form.Label>Apellido</Form.Label>
+        <FloatingLabel label="Apellido">
           <Form.Control
             type="text"
             placeholder="Ingrese Apellido"
             name="apellido"
-            onChange={(e) => {
-              validarLargoMinimo(e.currentTarget.name, e.currentTarget.value);
-            }}
+            onChange={(e) =>
+              validarLargoMinimo(e.currentTarget.name, e.currentTarget.value)
+            }
           />
           <Form.Text></Form.Text>
-        </Form.Group>
+        </FloatingLabel>
 
-        <Form.Group>
-          <Form.Label>Edad</Form.Label>
+        <Form.Label>Edad</Form.Label>
+        <FloatingLabel label="Edad">
           <Form.Control
             type="number"
             placeholder="Ingrese Edad"
             name="edad"
-            onChange={(e) => {
-              validarLargoMinimo(e.currentTarget.name, e.currentTarget.value);
-            }}
+            onChange={(e) =>
+              validarLargoMinimo(e.currentTarget.name, e.currentTarget.value)
+            }
           />
           <Form.Text></Form.Text>
-        </Form.Group>
+        </FloatingLabel>
 
-        <Form.Group>
-          <Form.Label>Rut</Form.Label>
+        <Form.Label>Rut</Form.Label>
+        <FloatingLabel label="Rut">
           <Form.Control
             type="number"
             placeholder="Ingrese Rut"
             name="rut"
-            onChange={(e) => {
-              validarLargoMinimo(e.currentTarget.name, e.currentTarget.value);
-            }}
+            onChange={(e) =>
+              validarLargoMinimo(e.currentTarget.name, e.currentTarget.value)
+            }
           />
           <Form.Text></Form.Text>
-        </Form.Group>
+        </FloatingLabel>
 
-        <Form.Group>
-          <Form.Label>Correo</Form.Label>
+        <Form.Label>Correo</Form.Label>
+        <FloatingLabel label="Correo">
           <Form.Control
             type="email"
             placeholder="Ingrese Correo"
             name="correo"
-            onChange={(e) => {
-              validarLargoMinimo(e.currentTarget.name, e.currentTarget.value);
-            }}
+            onChange={(e) =>
+              validarLargoMinimo(e.currentTarget.name, e.currentTarget.value)
+            }
           />
           <Form.Text></Form.Text>
-        </Form.Group>
+        </FloatingLabel>
 
-        <Form.Group>
-          <Form.Label>Fecha de Nacimiento</Form.Label>
+        <Form.Label>Fecha de nacimiento</Form.Label>
+        <FloatingLabel label="Fecha de Nacimiento">
           <Form.Control
             type="date"
             placeholder="Ingrese Fecha de Nacimiento"
             name="fechaNacimiento"
-            onChange={(e) => {
-              validarLargoMinimo(e.currentTarget.name, e.currentTarget.value);
-            }}
+            onChange={(e) =>
+              validarLargoMinimo(e.currentTarget.name, e.currentTarget.value)
+            }
           />
           <Form.Text></Form.Text>
-        </Form.Group>
+        </FloatingLabel>
 
         <Button variant="success" onClick={registrar}>
           Registrar
