@@ -18,6 +18,7 @@ export const registrarUsuario = async (usuario: Usuario) => {
   const docRef = await addDoc(collection(db, "usuarios"), usuario);
 };
 
+// mostrar datos de usuarios
 export const mostrarUsuario = async (key: string) => {
   const docRef = doc(db, "usuarios", key);
   const docSnapshot = await getDoc(docRef);
@@ -39,6 +40,7 @@ export const mostrarUsuario = async (key: string) => {
   }
 };
 
+// recuperar datos de usuarios
 export const recuperarUsuarios = async () => {
   const docRef = collection(db, "usuarios");
 
@@ -61,21 +63,24 @@ export const recuperarUsuarios = async () => {
   return usuarios;
 };
 
+// actualizacion de usuario
 export const actualizarUsuario = async (u: Usuario) => {
   const ref = doc(db, "usuarios", u.key!);
   await updateDoc(ref, { ...u });
 };
-
+// eliminacion de usuarios
 export const eliminarUsuario = async (u: Usuario) => {
   const ref = doc(db, "usuarios", u.key!);
   await deleteDoc(ref);
 };
 
 // guitarras
+// registro de guitarras
 export const registrarGuitarra = async (guitarra: Guitarra) => {
   const docRef = await addDoc(collection(db, "guitarras"), guitarra);
 };
 
+// recuperar datos de guitarras
 export const recuperarGuitarras = async () => {
   const docRef = collection(db, "guitarras");
 
@@ -97,6 +102,7 @@ export const recuperarGuitarras = async () => {
   return guitarras;
 };
 
+// mostrar guitarras
 export const mostrarGuitarra = async (key: string) => {
   const docRef = doc(db, "guitarras", key);
   const docSnapshot = await getDoc(docRef);

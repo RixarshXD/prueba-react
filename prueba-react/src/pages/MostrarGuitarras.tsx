@@ -55,6 +55,29 @@ const MostrarGuitarras = () => {
     mostrarModal();
   };
 
+  // modal de eliminacion de guitarras
+  const [modalEliminacion, setModalEliminacion] = useState(false);
+
+  const cerrarModalEliminacion = () => setModalEliminacion(false);
+
+  const mostrarModalConfirmacion = (guitarra: Guitarra) => {
+    setGuitarraSeleccionada(guitarra);
+    setModalEliminacion(true);
+  };
+
+  // eliminacion de guitarras
+  const eliminar = () => {
+    if (GuitarraSeleccionada.key) {
+      eliminarGuitarra(GuitarraSeleccionada).then(() => {
+        console.log("usuario eliminado correctamente");
+        cerrarModalEliminacion();
+        recuperarGuitarras().then((guitarra) => {
+          setGuitarra(guitarra);
+        });
+      });
+    }
+  };
+
   const modificar = () => {
     actualizarGuitarra(GuitarraSeleccionada).then(() => {
       console.log("se actualizó correctamente");
@@ -64,17 +87,6 @@ const MostrarGuitarras = () => {
       });
     });
   };
-
-  // const eliminar = (g: Guitarra) => {
-  //   eliminarGuitarra(g)
-  //     .then(() => {
-  //       alert("Se eliminó la guitarra correctamente");
-  //       recuperarGuitarras(); // Actualizar la tabla después de eliminar
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
 
   return (
     <>
@@ -92,21 +104,26 @@ const MostrarGuitarras = () => {
           </tr>
         </thead>
         <tbody>
-          {guitarra.map((p) => {
+          {guitarra.map((g) => {
             return (
-              <tr key={p.key}>
-                <td>{p.modelo}</td>
-                <td>{p.cuerdas}</td>
-                <td>{p.trastes}</td>
-                <td>{p.puente}</td>
-                <td>{p.color}</td>
+              <tr key={g.key}>
+                <td>{g.modelo}</td>
+                <td>{g.cuerdas}</td>
+                <td>{g.trastes}</td>
+                <td>{g.puente}</td>
+                <td>{g.color}</td>
 
                 <td>
-                  <Button variant="success" onClick={() => modalEditar(p)}>
+                  <Button variant="success" onClick={() => modalEditar(g)}>
                     <RiEditFill />
                   </Button>
 
-                  <Button variant="danger">
+                  <Button
+                    variant="danger"
+                    onClick={() => {
+                      mostrarModalConfirmacion(g);
+                    }}
+                  >
                     <MdDeleteForever />
                   </Button>
                 </td>
@@ -214,6 +231,23 @@ const MostrarGuitarras = () => {
           </Button>
           <Button variant="primary" onClick={modificar}>
             guardar cambios
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={modalEliminacion} onHide={cerrarModalEliminacion}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmar Eliminación</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          ¿Estás seguro de que deseas eliminar a {GuitarraSeleccionada.modelo}?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={cerrarModalEliminacion}>
+            Cancelar
+          </Button>
+          <Button variant="danger" onClick={eliminar}>
+            Eliminar
           </Button>
         </Modal.Footer>
       </Modal>
