@@ -6,6 +6,7 @@ import {
   addDoc,
   collection,
   doc,
+  DocumentSnapshot,
   getDoc,
   getDocs,
   updateDoc,
@@ -15,6 +16,54 @@ import { db } from "./Firebase";
 // Usuarios
 export const registrarUsuario = async (usuario: Usuario) => {
   const docRef = await addDoc(collection(db, "usuarios"), usuario);
+};
+
+export const mostrarUsuario = async (key: string) => {
+  const docRef = doc(db, "usuarios", key);
+  const docSnapshot = await getDoc(docRef);
+
+  if (docSnapshot.exists()) {
+    let usuario: Usuario = {
+      nombre: docSnapshot.data().nombre,
+      apellido: docSnapshot.data().apellido,
+      rut: docSnapshot.data().rut,
+      edad: docSnapshot.data().edad,
+      fechaNacimiento: docSnapshot.data().fechaNacimiento,
+      correo: docSnapshot.data().correo,
+
+      key: docSnapshot.data().id,
+    };
+    return usuario;
+  } else {
+    return undefined;
+  }
+};
+
+export const recuperarUsuarios = async () => {
+  const docRef = collection(db, "usuarios");
+
+  const querySnapshot = await getDocs(docRef);
+
+  let usuarios: Usuario[] = [];
+  querySnapshot.forEach((doc) => {
+    let usuario: Usuario = {
+      nombre: doc.data().nombre,
+      apellido: doc.data().apellido,
+      rut: doc.data().rut,
+      edad: doc.data().edad,
+      fechaNacimiento: doc.data().fechaNacimiento,
+      correo: doc.data().correo,
+
+      key: doc.id,
+    };
+    usuarios.push(usuario);
+  });
+  return usuarios;
+};
+
+export const actualizarUsuario = async (u: Usuario) => {
+  const ref = doc(db, "usuarios", u.key!);
+  await updateDoc(ref, { ...u });
 };
 
 // guitarras

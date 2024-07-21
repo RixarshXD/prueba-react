@@ -4,6 +4,6 @@ export const initialStateGuitarra: Guitarra = {
   modelo: "",
   cuerdas: 0,
   trastes: 0,
-  puente: 0,
+  puente: "",
   color: "",
 };
